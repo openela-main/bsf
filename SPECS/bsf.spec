@@ -1,6 +1,6 @@
 Name:           bsf
 Version:        2.4.0
-Release:        43%{?dist}
+Release:        45%{?dist}
 Summary:        Bean Scripting Framework
 License:        ASL 2.0
 URL:            http://commons.apache.org/bsf/
@@ -46,8 +46,8 @@ engines:
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
 find -name \*.jar -delete
 
 %mvn_file : %{name}
@@ -67,6 +67,12 @@ ant -Dsource.level=1.6 jar
 %doc AUTHORS.txt CHANGES.txt README.txt TODO.txt RELEASE-NOTE.txt
 
 %changelog
+* Thu Nov 21 2024 Marián Konček <mkoncek@redhat.com> - 2.4.0-45
+- Fix patch usage
+
+* Tue Nov 19 2024 Marián Konček <mkoncek@redhat.com> - 2.4.0-44
+- Rebuild with regenerated Requires on Java
+
 * Mon Aug 09 2021 Mohan Boddu <mboddu@redhat.com> - 2.4.0-43
 - Rebuilt for IMA sigs, glibc 2.34, aarch64 flags
   Related: rhbz#1991688
