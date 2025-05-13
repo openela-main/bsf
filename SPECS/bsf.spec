@@ -1,10 +1,11 @@
 Name:           bsf
 Version:        2.4.0
-Release:        45%{?dist}
+Release:        48%{?dist}
 Summary:        Bean Scripting Framework
 License:        ASL 2.0
 URL:            http://commons.apache.org/bsf/
 BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 
 Source0:        http://apache.mirror.anlx.net//commons/%{name}/source/%{name}-src-%{version}.tar.gz
 Source1:        %{name}-pom.xml
@@ -55,7 +56,7 @@ find -name \*.jar -delete
 
 %build
 export CLASSPATH=$(build-classpath apache-commons-logging xalan-j2)
-ant -Dsource.level=1.6 jar
+ant -Dsource.level=1.6 -Dant.build.javac.target=1.6 jar
 
 %mvn_artifact %{SOURCE1} build/lib/%{name}.jar
 
@@ -67,6 +68,15 @@ ant -Dsource.level=1.6 jar
 %doc AUTHORS.txt CHANGES.txt README.txt TODO.txt RELEASE-NOTE.txt
 
 %changelog
+* Wed Dec 04 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.4.0-48
+- Explicitly specify JVM target version
+
+* Sat Nov 23 2024 Marián Konček <mkoncek@redhat.com> - 2.4.0-47
+- Add noarch to ExclusiveArch
+
+* Fri Nov 22 2024 Marián Konček <mkoncek@redhat.com> - 2.4.0-46
+- Disable building on i686
+
 * Thu Nov 21 2024 Marián Konček <mkoncek@redhat.com> - 2.4.0-45
 - Fix patch usage
 
